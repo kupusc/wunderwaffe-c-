@@ -23,7 +23,7 @@ done
 
 
 _info_cmake "---------------------------"
-_info_cmake "projects builds"
+_info_cmake "projects must build"
 
 for d in ${output_dirs[*]}; do
     cmake --build $d --target all > build.log
@@ -31,7 +31,7 @@ for d in ${output_dirs[*]}; do
 done
 
 _info_cmake "---------------------------"
-_info_cmake " projects have tests"
+_info_cmake "projects must have tests"
 
 for d in ${output_dirs[*]}; do
     cmake --build $d --target run-tests > tests.log

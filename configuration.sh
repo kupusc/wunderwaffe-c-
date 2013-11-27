@@ -7,6 +7,6 @@ TOOLCHAIN_FILES+=" ppc.cmake"
 # TOOLCHAIN_FILES+=" mips64.cmake"
 # TOOLCHAIN_FILES+=" mips64-octeon.cmake"
 TOOLCHAIN_FILES+=" arm.cmake"
-TOOLCHAIN_FILES+=" mingw-gcc-x86_64.cmake"
+TOOLCHAIN_FILES+=" mingw-gcc-amd64.cmake"
 
 GENERATOR=Ninja

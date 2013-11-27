@@ -8,6 +8,6 @@ for i in ${TOOLCHAIN_FILES[*]}; do
     rm -rf $output_dir
     mkdir -p $output_dir
     pushd $output_dir > /dev/null
-    cmake $CMAKE_SOURCE_DIR -G$GENERATOR -DCMAKE_TOOLCHAIN_FILE:PATH=${i} > configure.log 2>&1
+    cmake -DPROJECT_NAME:STRING=${PROJECT_NAME} $CMAKE_SOURCE_DIR -G$GENERATOR -DCMAKE_TOOLCHAIN_FILE:PATH=${i} > configure.log 2>&1
     popd > /dev/null
 done

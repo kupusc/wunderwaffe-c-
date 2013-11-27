@@ -34,7 +34,7 @@ _info_cmake "-------------------------------------------------------------------
 _info_cmake "projects must build tests (not run) for each target: can be run on target"
 
 for d in ${output_dirs[*]}; do
-    cmake --build $d --target $PROJECT_NAME-test > tests.log
+    cmake --build $d --target $PROJECT_NAME-test > build-test.log
     _error_cmake "building tests failed for $d"
 done
 
@@ -47,7 +47,7 @@ CONFIGURATIONS_SUPPORTING_TESTS+=" arm.cmake"
 CONFIGURATIONS_SUPPORTING_TESTS+=" ppc.cmake"
 
 for cfg in ${CONFIGURATIONS_SUPPORTING_TESTS[*]}; do
-    cmake --build ${CMAKE_OUTPUT_DIR}-${cfg} --target run-test > tests.log
+    cmake --build ${CMAKE_OUTPUT_DIR}-${cfg} --target run-test > run-test.log
     _error_cmake "running tests failed for $cfg"
 done
 

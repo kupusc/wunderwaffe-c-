@@ -7,6 +7,7 @@
 
 ./configure
 
+_info_cmake "will test toolchains: ${TOOLCHAIN_FILES[*]}"
 
 for i in ${TOOLCHAIN_FILES[*]}; do
     [ -f $i ] || _error_cmake "no ${c} $i ${r} toolchain file in ${CMAKE_SOURCE_DIR}"
@@ -16,17 +17,13 @@ for i in ${TOOLCHAIN_FILES[*]}; do
     output_dirs+=" ${CMAKE_OUTPUT_DIR}-${i}"
 done
 
-_info_cmake "---------------------------"
-_info_cmake "will test ${output_dirs[*]}"
-
 for d in ${output_dirs[*]}; do
-    _info_cmake "testing: dir exists ${d}"
     [ -d $d ] || _error_cmake "no ${c} $d ${r} directory created"
 done
 
 
 _info_cmake "---------------------------"
-_info_cmake "will test if projects build"
+_info_cmake "projects builds"
 
 for d in ${output_dirs[*]}; do
     cmake --build $d --target all > build.log
@@ -34,7 +31,7 @@ for d in ${output_dirs[*]}; do
 done
 
 _info_cmake "---------------------------"
-_info_cmake "will test if projects have tests"
+_info_cmake " projects have tests"
 
 for d in ${output_dirs[*]}; do
     cmake --build $d --target run-tests > tests.log

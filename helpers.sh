@@ -2,6 +2,8 @@
 
 RET_VAL=0
 
+INDENTAION="\t"
+
 _handle_error()
 {
     echo "Error in ${FUNCNAME[1]}:${@}"
@@ -20,19 +22,19 @@ _show_stacktrace()
     do
         n=$(( ${i} + 1 ))
         nn=$(( ${i} + 1 ))
-        echo -e "#${i} in ${FUNCNAME[$n]}() \t\tat ${BASH_SOURCE[${nn}]}:${BASH_LINENO[${n}]}"
+        echo -e "${INDENTAION}#${i} in ${FUNCNAME[$n]}() \t\tat ${BASH_SOURCE[${nn}]}:${BASH_LINENO[${n}]}"
     done
 }
 
 
 _info_cmake()
 {
-    echo -e "${G}[info] ${g}${@}${n}"
+    echo -e "${INDENTAION}${G}[info] ${g}${@}${n}"
 }
 
 _warning_cmake()
 {
-    echo -e "${Y}[warning] ${y}${@}${n}"
+    echo -e "${INDENTAION}${Y}[warning] ${y}${@}${n}"
 }
 
 _error_cmake()
@@ -40,11 +42,16 @@ _error_cmake()
     rc=$?
     if [[ $rc != 0 ]]
     then
-        echo -e "${R}[error]${r} ${@}, error code: ${rc}${n}"
+        echo -e "${INDENTAION}${R}[error]${r} ${@}, error code: ${rc}${n}"
         exit $rc
     fi
 }
 
+declare _test_case_no=0
+_test_case()
+{
+    echo -e "${INDENTAION}${B}[test_case $((_test_case_no++)) ] ${b}${@}${n}"
+}
 
 makeAbsolutePath()
 {

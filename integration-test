@@ -1,17 +1,34 @@
 #!/bin/bash
 
-. helpers.sh
-. configuration.sh
+source helpers.sh
+
+# the same configuration is used in production!
+source configuration.sh
+
+
+################
+# Prerequisites#
+################
+
+_test_case "Checks if the configuration makes sense"
 
 [ -d $CMAKE_SOURCE_DIR ] || _error_cmake "no ${c} $CMAKE_SOURCE_DIR directory ${r}\nCannot configure project" 
-
-./configure
-
-_info_cmake "will test toolchains: ${TOOLCHAIN_FILES[*]}"
 
 for i in ${TOOLCHAIN_FILES[*]}; do
     [ -f $i ] || _error_cmake "no ${c} $i ${r} toolchain file in ${CMAKE_SOURCE_DIR}"
 done
+
+##########
+# Action #
+##########
+
+_info_cmake "will test toolchains: ${K} ${TOOLCHAIN_FILES[*]}"
+./configure
+
+
+########
+# Tests#
+########
 
 for i in ${TOOLCHAIN_FILES[*]}; do
     output_dirs+=" ${CMAKE_OUTPUT_DIR}-${i}"
@@ -22,24 +39,21 @@ for d in ${output_dirs[*]}; do
 done
 
 
-_info_cmake "---------------------------"
-_info_cmake "projects must build"
+_test_case "projects must build"
 
 for d in ${output_dirs[*]}; do
     cmake --build $d --target all > build.log
     _error_cmake "build failed for $d"
 done
 
-_info_cmake "-------------------------------------------------------------------------"
-_info_cmake "projects must build tests (not run) for each target: can be run on target"
+_test_case "projects must build tests (not run) for each target: can be run on target"
 
 for d in ${output_dirs[*]}; do
     cmake --build $d --target $PROJECT_NAME-test > build-test.log
     _error_cmake "building tests failed for $d"
 done
 
-_info_cmake "-------------------------------------------------------------------------------"
-_info_cmake "projects must run tests on supported (on host) targets: can be run on this host"
+_test_case "projects must run tests on supported (on host) targets: can be run on this host"
 
 CONFIGURATIONS_SUPPORTING_TESTS+=amd64.cmake
 CONFIGURATIONS_SUPPORTING_TESTS+=" mingw-gcc-amd64.cmake"
@@ -50,6 +64,3 @@ for cfg in ${CONFIGURATIONS_SUPPORTING_TESTS[*]}; do
     cmake --build ${CMAKE_OUTPUT_DIR}-${cfg} --target run-test > run-test.log
     _error_cmake "running tests failed for $cfg"
 done
-
-_info_cmake "---------"
-_info_cmake "Result ok"

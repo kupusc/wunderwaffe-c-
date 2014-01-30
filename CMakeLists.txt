@@ -11,6 +11,11 @@ add_executable(${CMAKE_PROJECT_NAME}
 add_executable(${CMAKE_PROJECT_NAME}-test source-test/main.cpp)
 
 add_custom_target(run-test
+    COMMAND ${to_host_translator} ./${CMAKE_PROJECT_NAME}-test
+    DEPENDS ${CMAKE_PROJECT_NAME}
+)
+
+add_custom_target(run
     COMMAND ${to_host_translator} ./${CMAKE_PROJECT_NAME}
     DEPENDS ${CMAKE_PROJECT_NAME}
 )

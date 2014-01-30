@@ -67,3 +67,10 @@ for cfg in ${CONFIGURATIONS_SUPPORTING_TESTS[*]}; do
     cmake --build ${CMAKE_OUTPUT_DIR}-${cfg} --target run-test >> run-test.log
     _error_cmake "running tests failed for $cfg"
 done
+
+_test_case "projects must run on supported (on host) targets"
+
+for cfg in ${CONFIGURATIONS_SUPPORTING_TESTS[*]}; do
+    cmake --build ${CMAKE_OUTPUT_DIR}-${cfg} --target run >> run.log
+    _error_cmake "running failed for $cfg"
+done

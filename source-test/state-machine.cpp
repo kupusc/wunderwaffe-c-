@@ -50,3 +50,8 @@ TEST(state_machine_must, keep_internal_state)
     CHECK_EQUAL(state0, handle(interrogation0));
     CHECK_EQUAL(state1, handle(interrogation1));
 }
+
+TEST(state_machine_must, be_immune_to_race_conditions)
+{
+    
+}

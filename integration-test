@@ -50,7 +50,7 @@ done
 _test_case "projects must run tests on supported (on host) targets: can be run on this host"
 
 rm -f run-test.log
-for cfg in ${CONFIGURATIONS_SUPPORTING_TESTS[*]}; do
+for cfg in ${CONFIGURATIONS_SUPPORTING_TESTS_ON_HOST[*]}; do
     echo $cfg >> run-test.log
     cmake --build ${CMAKE_OUTPUT_DIR}-${cfg} --target run-test >> run-test.log 2>&1
     _error_cmake "running tests failed for $cfg"

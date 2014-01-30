@@ -3,7 +3,11 @@ project(${PROJECT_NAME})
 
 set(CMAKE_BUILD_TYPE Debug)
 
-add_executable(${CMAKE_PROJECT_NAME} source/main.cpp)
+add_executable(${CMAKE_PROJECT_NAME} 
+    source/main.cpp
+    source/state-machine.c
+)
+
 add_executable(${CMAKE_PROJECT_NAME}-test source-test/main.cpp)
 
 add_custom_target(run-test

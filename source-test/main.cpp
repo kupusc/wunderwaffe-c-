@@ -1,7 +1,8 @@
 #include <iostream>
 
-int main(int argc, char const *argv[])
+#include <CppUTest/CommandLineTestRunner.h>
+
+int main(int ac, char** av)
 {
-    std::cout << "running stub tests" << std::endl;
-    return 0;
+   return CommandLineTestRunner::RunAllTests(ac, av);
 }

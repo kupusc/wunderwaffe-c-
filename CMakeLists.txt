@@ -4,7 +4,9 @@ project(${PROJECT_NAME})
 set(CMAKE_BUILD_TYPE Debug)
 
 add_subdirectory(/home/skoblins/workspace/cpputest ${CMAKE_CURRENT_BINARY_DIR}/cpputest)
-include_directories(/home/skoblins/workspace/cpputest/include)
+include_directories(/home/skoblins/workspace/cpputest/include
+    source
+)
 
 add_library(state-machine
     source/state-machine.c

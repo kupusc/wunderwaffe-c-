@@ -9,8 +9,14 @@ void install_handler(int state, int interrogation, handler_t* handler)
     handlers[state][interrogation] = handler;
 }
 
-void handle(int interrogation)
+int handle(int interrogation)
 {
     handler_t* func = handlers[current_state][interrogation];
     current_state = (*func)();
+    return current_state;
+}
+
+void init()
+{
+    current_state = 0;
 }

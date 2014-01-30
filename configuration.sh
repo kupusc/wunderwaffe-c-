@@ -11,7 +11,7 @@ TOOLCHAIN_FILES+=" arm.cmake"
 TOOLCHAIN_FILES+=" mingw-gcc-amd64.cmake"
 TOOLCHAIN_FILES+=" mips64.cmake"
 TOOLCHAIN_FILES+=" ppc.cmake"
-TOOLCHAIN_FILES=" clang.cmake"
+TOOLCHAIN_FILES+=" clang.cmake"
 
 
 # CONFIGURATIONS_SUPPORTING_TESTS+=" arm.cmake"

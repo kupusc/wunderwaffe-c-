@@ -36,8 +36,17 @@ cmake_force_cxx_compiler(mingw32-g++ 	GNU)
 #find_program(CMAKE_RC_COMPILER NAMES ${COMPILER_PREFIX}-windres)
 #SET(CMAKE_RC_COMPILER ${COMPILER_PREFIX}-windres)
 
+# set(sysroot                 /usr/lib64/gcc/mingw32/4.7.2)
+
+# foreach(flag CMAKE_EXE_LINKER_FLAGS CMAKE_EXE_LINKER_FLAGS_DEBUG CMAKE_EXE_LINKER_FLAGS_MINSIZEREL CMAKE_EXE_LINKER_FLAGS_RELEASE CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO CMAKE_MODULE_LINKER_FLAGS CMAKE_MODULE_LINKER_FLAGS_DEBUG CMAKE_MODULE_LINKER_FLAGS_MINSIZEREL CMAKE_MODULE_LINKER_FLAGS_RELEASE CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO CMAKE_SHARED_LINKER_FLAGS CMAKE_SHARED_LINKER_FLAGS_DEBUG CMAKE_SHARED_LINKER_FLAGS_MINSIZEREL CMAKE_SHARED_LINKER_FLAGS_RELEASE CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO)
+    # set(${flag} "--sysroot=${sysroot}" CACHE STRING "")
+# endforeach()
+
 SET(CMAKE_FIND_ROOT_PATH  				/usr/mingw32/usr)
 include_directories(                    ${CMAKE_FIND_ROOT_PATH}/include)
+# link_directories(
+  # ${CMAKE_FIND_ROOT_PATH}/lib
+# )
 
 # adjust the default behaviour of the FIND_XXX() commands:
 # search headers and libraries in the target environment, search 
@@ -49,4 +58,4 @@ set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE 	ONLY)
 execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpversion OUTPUT_VARIABLE COMPILER_VERSION)
 string(STRIP ${COMPILER_VERSION} COMPILER_VERSION)
 
-set(to_host_translator      wine)
+set(to_host_translator      WINEPATH=/usr/lib64/gcc/mingw32/4.7.2  wine)

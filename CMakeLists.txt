@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 project(${PROJECT_NAME})
 
 set(CMAKE_BUILD_TYPE Debug)
-set(BUILD_SHARED_LIBS true)
+# set(BUILD_SHARED_LIBS true)
 
 add_library(state-machine
     source/state-machine.c
@@ -33,3 +33,5 @@ add_custom_target(run
     COMMAND ${to_host_translator} ./${CMAKE_PROJECT_NAME}
     DEPENDS ${CMAKE_PROJECT_NAME}
 )
+
+# add_definitions(--address-sanitizer)

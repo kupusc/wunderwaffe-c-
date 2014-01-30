@@ -2,7 +2,7 @@
 
 RET_VAL=0
 
-INDENTAION="\t"
+INDENTAION=""
 
 _handle_error()
 {

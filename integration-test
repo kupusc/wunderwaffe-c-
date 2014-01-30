@@ -37,13 +37,13 @@ for d in ${output_dirs[*]}; do
     [ -d $d ] || _error_cmake "no ${c} $d ${r} directory created"
 done
 
-_info_cmake "will run tests for toolchains: ${K} ${CONFIGURATIONS_SUPPORTING_TESTS[*]}"
 _test_case "projects must build tests (not run) for each target: can be run on target"
 
 rm -f build-test.log
 for d in ${output_dirs[*]}; do
     cmake --build $d --target $PROJECT_NAME-test >> build-test.log
     _error_cmake "building tests failed for $d"
+    _info_cmake "$d ok"
 done
 
 _test_case "projects must run tests on supported (on host) targets: can be run on this host"
@@ -52,15 +52,16 @@ rm -f run-test.log
 for cfg in ${CONFIGURATIONS_SUPPORTING_TESTS[*]}; do
     cmake --build ${CMAKE_OUTPUT_DIR}-${cfg} --target run-test >> run-test.log
     _error_cmake "running tests failed for $cfg"
+    _info_cmake "$cfg ok"
 done
 
-_info_cmake "will test toolchains: ${K} ${TOOLCHAIN_FILES[*]}"
 _test_case "projects must build"
 
 rm -f build.log
 for d in ${output_dirs[*]}; do
     cmake --build $d --target all >> build.log
     _error_cmake "build failed for $d"
+    _info_cmake "$d ok"
 done
 
 _test_case "projects must run on supported (on host) targets"
@@ -68,4 +69,5 @@ _test_case "projects must run on supported (on host) targets"
 for cfg in ${CONFIGURATIONS_SUPPORTING_TESTS[*]}; do
     cmake --build ${CMAKE_OUTPUT_DIR}-${cfg} --target run >> run.log
     _error_cmake "running failed for $cfg"
+    _info_cmake "$cfg ok"
 done

@@ -57,11 +57,6 @@ done
 
 _test_case "projects must run tests on supported (on host) targets: can be run on this host"
 
-CONFIGURATIONS_SUPPORTING_TESTS+=amd64.cmake
-CONFIGURATIONS_SUPPORTING_TESTS+=" mingw-gcc-amd64.cmake"
-CONFIGURATIONS_SUPPORTING_TESTS+=" arm.cmake"
-CONFIGURATIONS_SUPPORTING_TESTS+=" ppc.cmake"
-
 rm -f run-test.log
 for cfg in ${CONFIGURATIONS_SUPPORTING_TESTS[*]}; do
     cmake --build ${CMAKE_OUTPUT_DIR}-${cfg} --target run-test >> run-test.log

@@ -2,7 +2,7 @@
 
 extern "C"
 {
-    #include <state-machine-driver.h>
+#include <state-machine-driver.h>
 }
 
 TEST_GROUP(state_machine_driver_must)
@@ -18,7 +18,7 @@ TEST_GROUP(state_machine_driver_must)
 
 TEST(state_machine_driver_must, link)
 {
-    state_machine_driver_install_handler(0,0,0,&object);
+    state_machine_driver_install_handler(0, 0, 0, &object);
 }
 
 int test_handler0()
@@ -46,7 +46,7 @@ TEST(state_machine_driver_must, keep_internal_state)
     const int interrogation1 = 1;
     const int state0 = test_handler0();
     const int state1 = test_handler1();
-    
+
     state_machine_driver_install_handler(initial_state, interrogation0, test_handler0, &object);
     state_machine_driver_install_handler(state0, interrogation1, test_handler1, &object);
 
@@ -56,5 +56,5 @@ TEST(state_machine_driver_must, keep_internal_state)
 
 TEST(state_machine_driver_must, be_immune_to_race_conditions)
 {
-    
+
 }

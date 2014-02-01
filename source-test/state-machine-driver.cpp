@@ -2,10 +2,10 @@
 
 extern "C"
 {
-    #include <state-machine.h>
+    #include <state-machine-driver.h>
 }
 
-TEST_GROUP(state_machine_must)
+TEST_GROUP(state_machine_driver_must)
 {
     void setup()
     {
@@ -13,7 +13,7 @@ TEST_GROUP(state_machine_must)
     }
 };
 
-TEST(state_machine_must, must_link)
+TEST(state_machine_driver_must, link)
 {
     install_handler(0,0,0);
 }
@@ -28,7 +28,7 @@ int test_handler1()
     return 2;
 }
 
-TEST(state_machine_must, handle_interrogation_in_initial_state_and_return_the_next_state_returned_by_handler)
+TEST(state_machine_driver_must, handle_interrogation_in_initial_state_and_return_the_next_state_returned_by_handler)
 {
     const int state = 0;
     const int interrogation = 2;
@@ -36,7 +36,7 @@ TEST(state_machine_must, handle_interrogation_in_initial_state_and_return_the_ne
     CHECK_EQUAL(test_handler0(), handle(interrogation));
 }
 
-TEST(state_machine_must, keep_internal_state)
+TEST(state_machine_driver_must, keep_internal_state)
 {
     const int initial_state = 0;
     const int interrogation0 = 0;
@@ -51,7 +51,7 @@ TEST(state_machine_must, keep_internal_state)
     CHECK_EQUAL(state1, handle(interrogation1));
 }
 
-TEST(state_machine_must, be_immune_to_race_conditions)
+TEST(state_machine_driver_must, be_immune_to_race_conditions)
 {
     
 }

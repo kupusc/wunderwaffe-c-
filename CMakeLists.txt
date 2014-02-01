@@ -8,8 +8,8 @@ include_directories(/home/skoblins/workspace/cpputest/include
     source
 )
 
-add_library(state-machine
-    source/state-machine.c
+add_library(state-machine-driver
+    source/state-machine-driver.c
 )
 
 add_executable(${CMAKE_PROJECT_NAME} 
@@ -18,15 +18,15 @@ add_executable(${CMAKE_PROJECT_NAME}
 
 add_executable(${CMAKE_PROJECT_NAME}-test 
     source-test/main.cpp
-    source-test/state-machine.cpp
+    source-test/state-machine-driver.cpp
 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME} 
-    state-machine
+    state-machine-driver
 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME}-test 
-    state-machine
+    state-machine-driver
     CppUTest
     CppUTestExt
 )

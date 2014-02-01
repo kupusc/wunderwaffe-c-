@@ -1,0 +1,14 @@
+:toc:
+:icons:
+:iconsdir: /usr/share/asciidoc/images/icons
+:numbered:
+
+== The program must do as many things as possible on as many platforms as possible
+
+This must be a solution for any poblem in the space!
+
+== The safety in this program is guaranteed by proper unit/integration tests, not the code itself
+
+It means there is no checking for null pointers, no error checking in the production code.
+
+== The code must as small and efficient as possible. 

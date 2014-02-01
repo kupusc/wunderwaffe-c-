@@ -5,6 +5,22 @@ extern "C"
 #include <state-machine-driver.h>
 }
 
+
+//////////  Stubs /////////
+
+int test_handler0()
+{
+    return 5;
+}
+
+int test_handler1()
+{
+    return 2;
+}
+
+
+//////// Fixture //////////
+
 TEST_GROUP(state_machine_driver_must)
 {
     state_machine_driver_handler_t *handlers[8];
@@ -16,20 +32,14 @@ TEST_GROUP(state_machine_driver_must)
     }
 };
 
+
+//////// Tests /////////////
+
 TEST(state_machine_driver_must, link)
 {
     state_machine_driver_install_handler(0, 0, 0, &object);
 }
 
-int test_handler0()
-{
-    return 5;
-}
-
-int test_handler1()
-{
-    return 2;
-}
 
 TEST(state_machine_driver_must, handle_interrogation_in_initial_state_and_return_the_next_state_returned_by_handler)
 {

@@ -9,13 +9,13 @@ TEST_GROUP(state_machine_driver_must)
 {
     void setup()
     {
-        state_machine_driver_init();
+        state_machine_driver_init(0);
     }
 };
 
 TEST(state_machine_driver_must, link)
 {
-    state_machine_driver_install_handler(0,0,0);
+    state_machine_driver_install_handler(0,0,0,0);
 }
 
 int test_handler0()
@@ -32,8 +32,8 @@ TEST(state_machine_driver_must, handle_interrogation_in_initial_state_and_return
 {
     const int state = 0;
     const int interrogation = 2;
-    state_machine_driver_install_handler(state, interrogation, test_handler0);
-    CHECK_EQUAL(test_handler0(), state_machine_driver_handle(interrogation));
+    state_machine_driver_install_handler(state, interrogation, test_handler0, 0);
+    CHECK_EQUAL(test_handler0(), state_machine_driver_handle(interrogation, 0));
 }
 
 TEST(state_machine_driver_must, keep_internal_state)
@@ -44,11 +44,11 @@ TEST(state_machine_driver_must, keep_internal_state)
     const int state0 = test_handler0();
     const int state1 = test_handler1();
     
-    state_machine_driver_install_handler(initial_state, interrogation0, test_handler0);
-    state_machine_driver_install_handler(state0, interrogation1, test_handler1);
+    state_machine_driver_install_handler(initial_state, interrogation0, test_handler0, 0);
+    state_machine_driver_install_handler(state0, interrogation1, test_handler1, 0);
 
-    CHECK_EQUAL(state0, state_machine_driver_handle(interrogation0));
-    CHECK_EQUAL(state1, state_machine_driver_handle(interrogation1));
+    CHECK_EQUAL(state0, state_machine_driver_handle(interrogation0, 0));
+    CHECK_EQUAL(state1, state_machine_driver_handle(interrogation1, 0));
 }
 
 TEST(state_machine_driver_must, be_immune_to_race_conditions)

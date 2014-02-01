@@ -1,7 +1,7 @@
 #pragma once
 
-typedef int (handler_t)();
+typedef int (state_machine_driver_handler_t)();
 
-void install_handler(int state, int interrogation, handler_t handler);
-int handle(int interrogation);
-void init();
+void state_machine_driver_install_handler(int state, int interrogation, state_machine_driver_handler_t handler);
+int state_machine_driver_handle(int interrogation);
+void state_machine_driver_init();

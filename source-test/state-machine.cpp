@@ -2,7 +2,8 @@
 
 extern "C"
 {
-#include <state-machine-driver.h>
+#include <state-machine.h>
+#include "state-machine-driver.h"
 }
 
 
@@ -21,7 +22,8 @@ TEST_GROUP(state_machine_must)
 
 //////// Tests /////////////
 
-TEST(state_machine_must, link)
+TEST(state_machine_must, start_synchronously)
 {
-    FAIL("me");
+    state_machine_data my_state_machine_data;
+    state_machine_start_synchronously(&my_state_machine_data);
 }

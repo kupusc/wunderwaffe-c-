@@ -24,7 +24,7 @@ int test_handler1()
 TEST_GROUP(state_machine_driver_must)
 {
     state_machine_driver_handler_t *handlers[8];
-    state_machine_object object;
+    state_machine_data object;
     void setup()
     {
         object.handlers = handlers;

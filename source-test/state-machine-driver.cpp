@@ -63,8 +63,3 @@ TEST(state_machine_driver_must, keep_internal_state)
     CHECK_EQUAL(state0, state_machine_driver_handle(interrogation0, &data));
     CHECK_EQUAL(state1, state_machine_driver_handle(interrogation1, &data));
 }
-
-TEST(state_machine_driver_must, be_immune_to_race_conditions)
-{
-
-}

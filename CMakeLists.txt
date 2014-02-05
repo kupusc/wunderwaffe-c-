@@ -19,6 +19,7 @@ add_executable(${CMAKE_PROJECT_NAME}
 add_executable(${CMAKE_PROJECT_NAME}-test 
     source-test/main.cpp
     source-test/state-machine-driver.cpp
+    source-test/state-machine.cpp
 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME} 

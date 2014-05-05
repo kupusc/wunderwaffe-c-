@@ -1,4 +1,5 @@
-#pragma once
+#ifndef STATE_MACHINE_DRIVER_H
+#define STATE_MACHINE_DRIVER_H
 
 typedef int (state_machine_driver_handler_t)();
 
@@ -17,3 +18,5 @@ int state_machine_driver_handle(int interrogation,
                                 struct state_machine_data *);
 
 void state_machine_driver_init(struct state_machine_data *);
+
+#endif

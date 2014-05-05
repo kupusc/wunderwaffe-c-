@@ -3,6 +3,7 @@ project(${PROJECT_NAME})
 
 set(CMAKE_BUILD_TYPE Debug)
 
+set(C++11 ON)
 add_subdirectory(/home/skoblins/workspace/cpputest ${CMAKE_CURRENT_BINARY_DIR}/cpputest)
 include_directories(/home/skoblins/workspace/cpputest/include
     source
@@ -14,11 +15,6 @@ add_library(state-machine        SHARED source/state-machine.c)
 set(libs    state-machine-driver;
             state-machine)
 
-set_target_properties(${libs}
-  PROPERTIES
-  COMPILE_FLAGS -std=c11
-)
-
 add_executable(${CMAKE_PROJECT_NAME} 
     source/main.cpp
 )
@@ -29,6 +25,15 @@ add_executable(${CMAKE_PROJECT_NAME}-test
     source-test/state-machine.cpp
 )
 
+set_target_properties(${libs}
+  PROPERTIES
+  COMPILE_FLAGS -ansi
+)
+
+set_target_properties(${CMAKE_PROJECT_NAME}-test
+  PROPERTIES
+  COMPILE_FLAGS -std=c++11
+)
 
 target_link_libraries(${CMAKE_PROJECT_NAME}      ${libs})
 target_link_libraries(${CMAKE_PROJECT_NAME}-test ${libs} CppUTest CppUTestExt)

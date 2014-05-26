@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 project(${PROJECT_NAME})
 
-set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_BUILD_TYPE Debug CACHE STRING "")
+set(CMAKE_USE_RELATIVE_PATHS ON CACHE BOOL "")
 
 set(C++11 ON)
 add_subdirectory(/home/skoblins/workspace/cpputest ${CMAKE_CURRENT_BINARY_DIR}/cpputest)
@@ -41,9 +42,11 @@ target_link_libraries(${CMAKE_PROJECT_NAME}-test ${libs} CppUTest CppUTestExt)
 add_custom_target(run-test
     COMMAND ${to_host_translator} ./${CMAKE_PROJECT_NAME}-test
     DEPENDS ${CMAKE_PROJECT_NAME}-test
+    COMMENT "${to_host_translator} ./${CMAKE_PROJECT_NAME}-test"
 )
 
 add_custom_target(run
     COMMAND ${to_host_translator} ./${CMAKE_PROJECT_NAME}
     DEPENDS ${CMAKE_PROJECT_NAME}
+    COMMENT "${to_host_translator} ./${CMAKE_PROJECT_NAME}"
 )

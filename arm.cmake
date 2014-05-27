@@ -13,7 +13,7 @@ set(CMAKE_OBJDUMP           ${toolchain_prefix}-objdump CACHE STRING "")
 set(CMAKE_RANLIB            ${toolchain_prefix}-ranlib CACHE STRING "")
 
 
-set(to_host_translator      LD_LIBRARY_PATH=/usr/lib64/gcc/${toolchain_prefix}/4.7.2/ qemu-arm -L /usr/${toolchain_prefix})
+set(to_host_translator      LD_LIBRARY_PATH=/usr/lib64/gcc/${toolchain_prefix}/4.8.2/ qemu-arm -L /usr/${toolchain_prefix})
 
 set(sysroot                 /usr/${toolchain_prefix})
 

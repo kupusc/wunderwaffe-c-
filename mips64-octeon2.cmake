@@ -13,10 +13,12 @@ set(CMAKE_OBJDUMP           ${toolchain_prefix}-objdump CACHE STRING "")
 set(CMAKE_RANLIB            ${toolchain_prefix}-ranlib  CACHE STRING "")
 
 
-set(to_host_translator      LD_LIBRARY_PATH=/usr/lib64/gcc/${toolchain_prefix}/4.7.2/ qemu-mips -L /usr/${toolchain_prefix})
+set(to_host_translator      LD_LIBRARY_PATH=/usr/lib64/gcc/${toolchain_prefix}/4.8.2/ qemu-mips -L /usr/${toolchain_prefix})
 
 set(sysroot                 /usr/${toolchain_prefix})
 
 foreach(flag CMAKE_EXE_LINKER_FLAGS CMAKE_EXE_LINKER_FLAGS_DEBUG CMAKE_EXE_LINKER_FLAGS_MINSIZEREL CMAKE_EXE_LINKER_FLAGS_RELEASE CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO CMAKE_MODULE_LINKER_FLAGS CMAKE_MODULE_LINKER_FLAGS_DEBUG CMAKE_MODULE_LINKER_FLAGS_MINSIZEREL CMAKE_MODULE_LINKER_FLAGS_RELEASE CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO CMAKE_SHARED_LINKER_FLAGS CMAKE_SHARED_LINKER_FLAGS_DEBUG CMAKE_SHARED_LINKER_FLAGS_MINSIZEREL CMAKE_SHARED_LINKER_FLAGS_RELEASE CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO)
     set(${flag} "--sysroot=${sysroot}" CACHE STRING "")
 endforeach()
+
+link_directories(/usr/lib64/gcc/${toolchain_prefix}/4.8.2/)

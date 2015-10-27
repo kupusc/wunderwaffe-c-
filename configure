@@ -3,13 +3,14 @@
 . helpers.sh
 . configuration.sh
 
-rm -f ${CMAKE_SOURCE_DIR}/configure.log
+rm -f ${CMAKE_SOURCE_DIR}/*.log
 
 for i in ${TOOLCHAIN_FILES[*]}; do
     output_dir=${CMAKE_OUTPUT_DIR}-${i}
     rm -rf $output_dir/*
     mkdir -p $output_dir
     pushd $output_dir > /dev/null
-    cmake -DPROJECT_NAME:STRING=${PROJECT_NAME} $CMAKE_SOURCE_DIR -G$GENERATOR -DCMAKE_TOOLCHAIN_FILE:PATH=${i} >> ${CMAKE_SOURCE_DIR}/configure.log 2>&1
+    cmake -DPROJECT_NAME:STRING=${PROJECT_NAME} $CMAKE_SOURCE_DIR -G$GENERATOR -DCMAKE_TOOLCHAIN_FILE:PATH=${i} >> ${CMAKE_SOURCE_DIR}/configure-${i}.log 2>&1
+    _error_cmake "Errors in cmake configuration for ${c}${i}, ${r}see ${CMAKE_SOURCE_DIR}/configure.log file for details."
     popd > /dev/null
 done

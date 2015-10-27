@@ -34,13 +34,13 @@ add_library(state-machine        SHARED source/state-machine.c)
 set(libs    state-machine-driver;
             state-machine)
 
-add_executable(${CMAKE_PROJECT_NAME} 
+add_executable(${CMAKE_PROJECT_NAME}
     source/main.cpp
 )
 
 include_directories(/usr/include/qt4)
 link_directories(/usr/lib/qt4)
-add_executable(qt-app EXCLUDE_FROM_ALL source/main-qt.cpp) 
+add_executable(qt-app EXCLUDE_FROM_ALL source/main-qt.cpp)
 
 
 #########
@@ -49,7 +49,7 @@ add_executable(qt-app EXCLUDE_FROM_ALL source/main-qt.cpp)
 
 include_directories(/home/skoblins/workspace/cpputest/include)
 
-add_executable(${CMAKE_PROJECT_NAME}-test 
+add_executable(${CMAKE_PROJECT_NAME}-test
     source-test/main.cpp
     source-test/state-machine-driver.cpp
     source-test/state-machine.cpp
@@ -100,3 +100,5 @@ add_custom_target(run
 add_custom_target(run-qt
     COMMAND qt-app
 )
+
+add_definitions(-w)

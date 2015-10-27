@@ -12,7 +12,7 @@ source configuration.sh
 
 _test_case "Checks if the configuration makes sense"
 
-[ -d $CMAKE_SOURCE_DIR ] || _error_cmake "no ${c} $CMAKE_SOURCE_DIR directory ${r}\nCannot configure project" 
+[ -d $CMAKE_SOURCE_DIR ] || _error_cmake "no ${c} $CMAKE_SOURCE_DIR directory ${r}\nCannot configure project"
 
 for i in ${TOOLCHAIN_FILES[*]}; do
     [ -f $i ] || _error_cmake "no ${c} $i ${r} toolchain file in ${CMAKE_SOURCE_DIR}"
@@ -26,7 +26,7 @@ done
 
 
 ########
-# Tests#    
+# Tests#
 ########
 
 for i in ${TOOLCHAIN_FILES[*]}; do
@@ -42,7 +42,7 @@ _test_case "projects must build tests (not run) for each target: can be run on t
 rm -f build-test.log
 for cfg in ${CONFIGURATIONS_SUPPORTING_TESTS[*]}; do
     echo $cfg >> build-test.log
-    cmake --build ${CMAKE_OUTPUT_DIR}-$cfg --target $PROJECT_NAME-test >> build-test.log 2>&1
+    cmake --build ${CMAKE_OUTPUT_DIR}-$cfg --target $PROJECT_NAME-test >> build-test-${cfg}.log 2>&1
     _error_cmake "building tests failed for $cfg"
     _info_cmake "$cfg ok"
 done
@@ -52,7 +52,7 @@ _test_case "projects must run tests on supported (on host) targets: can be run o
 rm -f run-test.log
 for cfg in ${CONFIGURATIONS_SUPPORTING_TESTS_ON_HOST[*]}; do
     echo $cfg >> run-test.log
-    cmake --build ${CMAKE_OUTPUT_DIR}-${cfg} --target run-test >> run-test.log 2>&1
+    cmake --build ${CMAKE_OUTPUT_DIR}-${cfg} --target run-test >> run-test-${cfg}.log 2>&1
     _error_cmake "running tests failed for $cfg"
     _info_cmake "$cfg ok"
 done
@@ -71,7 +71,7 @@ _test_case "projects must run on supported (on host) targets"
 
 for cfg in ${CONFIGURATIONS_SUPPORTING_RUNNING[*]}; do
     echo $cfg >> run.log
-    cmake --build ${CMAKE_OUTPUT_DIR}-${cfg} --target run >> run.log
+    cmake --build ${CMAKE_OUTPUT_DIR}-${cfg} --target run >> run-${cfg}.log
     _error_cmake "running failed for $cfg"
     _info_cmake "$cfg ok"
 done

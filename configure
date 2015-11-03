@@ -5,12 +5,19 @@
 
 rm -f ${CMAKE_SOURCE_DIR}/*.log
 
-for i in ${TOOLCHAIN_FILES[*]}; do
-    output_dir=${CMAKE_OUTPUT_DIR}-${i}
+configure()
+{
+    cfg=$1
+    output_dir=${CMAKE_OUTPUT_DIR}-${cfg}
+    log_file=${CMAKE_SOURCE_DIR}/configure-${cfg}.log
     rm -rf $output_dir/*
     mkdir -p $output_dir
     pushd $output_dir > /dev/null
-    cmake -DPROJECT_NAME:STRING=${PROJECT_NAME} $CMAKE_SOURCE_DIR -G$GENERATOR -DCMAKE_TOOLCHAIN_FILE:PATH=${i} >> ${CMAKE_SOURCE_DIR}/configure-${i}.log 2>&1
-    _error_cmake "Errors in cmake configuration for ${c}${i}, ${r}see ${CMAKE_SOURCE_DIR}/configure.log file for details."
+    cmake -DPROJECT_NAME:STRING=${PROJECT_NAME} $CMAKE_SOURCE_DIR -G$GENERATOR -DCMAKE_TOOLCHAIN_FILE:PATH=${cfg} >> ${log_file}  2>&1
+    _error_cmake "Errors in cmake configuration for ${c}${cfg}, ${r}see ${log_file} file for details."
     popd > /dev/null
+}
+
+for i in ${TOOLCHAIN_FILES[*]}; do
+    configure ${i}
 done

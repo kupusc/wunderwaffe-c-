@@ -53,6 +53,7 @@ add_executable(${CMAKE_PROJECT_NAME}-test
     source-test/main.cpp
     source-test/state-machine-driver.cpp
     source-test/state-machine.cpp
+    source-test/free-tests.cpp
 )
 
 
@@ -101,4 +102,4 @@ add_custom_target(run-qt
     COMMAND qt-app
 )
 
-add_definitions(-w)
+# add_definitions(-w)

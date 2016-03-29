@@ -30,9 +30,11 @@ include_directories(source)
 
 add_library(state-machine-driver SHARED source/state-machine-driver.c)
 add_library(state-machine        SHARED source/state-machine.c)
+add_library(builder              SHARED source/build.cpp)
 
 set(libs    state-machine-driver;
-            state-machine)
+            state-machine;
+            builder)
 
 add_executable(${CMAKE_PROJECT_NAME}
     source/main.cpp

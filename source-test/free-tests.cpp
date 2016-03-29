@@ -1,4 +1,8 @@
 #include <CppUTest/TestHarness.h>
+extern "C"
+{
+    #include <build.h>
+}
 
 TEST_GROUP(free_test)
 {
@@ -24,4 +28,6 @@ TEST(free_test, must)
     unsigned char a = 255;
     // std::cout << a + 1 << std::endl;
     // FAIL("me");
+    watch(".");
+    // stop();
 }

@@ -22,6 +22,15 @@ set(C++11 ON)
 add_subdirectory(/home/skoblins/workspace/cpputest ${CMAKE_CURRENT_BINARY_DIR}/cpputest)
 
 
+#########################
+# Code inspection tools #
+#########################
+
+find_package(LLVM REQUIRED CONFIG)
+add_definitions(${LLVM_DEFINITIONS})
+include_directories(${LLVM_INCLUDE_DIRS})
+
+
 ###################
 # Production code #
 ###################
@@ -31,10 +40,14 @@ include_directories(source)
 add_library(state-machine-driver SHARED source/state-machine-driver.c)
 add_library(state-machine        SHARED source/state-machine.c)
 add_library(builder              SHARED source/build.c)
+add_library(llvm-pass            MODULE source/llvm-pass.cpp)
 
 set(libs    state-machine-driver;
             state-machine;
-            builder)
+            builder;
+)
+
+set(modules llvm-pass)
 
 add_executable(${CMAKE_PROJECT_NAME}
     source/main.cpp
@@ -56,6 +69,7 @@ add_executable(${CMAKE_PROJECT_NAME}-test
     source-test/state-machine-driver.cpp
     source-test/state-machine.cpp
     source-test/free-tests.cpp
+    source-test/llvm-pass.cpp
 )
 
 
@@ -68,7 +82,7 @@ set_target_properties(${libs}
   COMPILE_FLAGS -ansi
 )
 
-set_target_properties(${CMAKE_PROJECT_NAME}-test
+set_target_properties(${CMAKE_PROJECT_NAME}-test ${modules}
   PROPERTIES
   COMPILE_FLAGS -std=c++11
 )
@@ -90,18 +104,17 @@ target_link_libraries(qt-app                     QtGui QtCore)
 
 add_custom_target(run-test
     COMMAND ${to_host_translator} ./${CMAKE_PROJECT_NAME}-test
-    DEPENDS ${CMAKE_PROJECT_NAME}-test
+    DEPENDS ${CMAKE_PROJECT_NAME}-test llvm-pass
     COMMENT "${to_host_translator} ./${CMAKE_PROJECT_NAME}-test"
 )
 
 add_custom_target(run
     COMMAND ${to_host_translator} ./${CMAKE_PROJECT_NAME}
-    DEPENDS ${CMAKE_PROJECT_NAME}
+    DEPENDS ${CMAKE_PROJECT_NAME} llvm-pass
     COMMENT "${to_host_translator} ./${CMAKE_PROJECT_NAME}"
 )
 
 add_custom_target(run-qt
     COMMAND qt-app
+    DEPENDS llvm-pass
 )
-
-# add_definitions(-w)

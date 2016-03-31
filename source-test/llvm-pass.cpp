@@ -9,8 +9,8 @@
 //////// Fixture //////////
 
 std::string compile_cmd = "clang++ ";
-
-std::string compilation = compile_cmd + "./llvm-pass-example.cpp";
+std::string file_path = "./llvm-pass-example.cpp";
+std::string compilation = compile_cmd + file_path;
 
 TEST_GROUP(llvm)
 {
@@ -24,5 +24,5 @@ TEST_GROUP(llvm)
 
 TEST(llvm, works)
 {
-    execute(compilation);
+    wunderwaffe::execute(compilation);
 }

@@ -1,3 +1,5 @@
 #include <string>
-
-int execute(std::string const& command);
+namespace wunderwaffe
+{
+    int execute(std::string const& command);
+}

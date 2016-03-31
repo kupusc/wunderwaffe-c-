@@ -21,18 +21,21 @@ using namespace llvm;
 //                                  false /* Analysis Pass */);
 // };
 
-int execute(std::string const& command)
+namespace wunderwaffe
 {
-    FILE * f = popen( command.c_str(), "r" );
-    if ( f == 0 ) {
-        fprintf( stderr, "Could not execute\n" );
-        return -1;
+    int execute(std::string const& command)
+    {
+        FILE * f = popen( command.c_str(), "r" );
+        if ( f == 0 ) {
+            fprintf( stderr, "Could not execute\n" );
+            return -1;
+        }
+        const int BUFSIZE = 1000;
+        char buf[ BUFSIZE ];
+        while( fgets( buf, BUFSIZE,  f ) ) {
+            fprintf( stdout, "%s", buf  );
+        }
+        pclose( f );
+        return 0;
     }
-    const int BUFSIZE = 1000;
-    char buf[ BUFSIZE ];
-    while( fgets( buf, BUFSIZE,  f ) ) {
-        fprintf( stdout, "%s", buf  );
-    }
-    pclose( f );
-    return 0;
 }

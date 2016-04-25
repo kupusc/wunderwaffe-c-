@@ -13,13 +13,14 @@ project(${PROJECT_NAME})
 set(CMAKE_BUILD_TYPE Debug CACHE STRING "" FORCE)
 set(CMAKE_USE_RELATIVE_PATHS ON CACHE BOOL "" FORCE)
 set(C++11 ON)
+set(CPPUTEST_ROOT /home/skoblins/workspace/cxx/cpputest)
 
 
 ##################
 # test framework #
 ##################
 
-add_subdirectory(/home/skoblins/workspace/cpputest ${CMAKE_CURRENT_BINARY_DIR}/cpputest)
+add_subdirectory(${CPPUTEST_ROOT} ${CMAKE_CURRENT_BINARY_DIR}/cpputest)
 
 
 #########################
@@ -63,7 +64,7 @@ add_executable(qt-app EXCLUDE_FROM_ALL source/main-qt.cpp)
 # Tests #
 #########
 
-include_directories(/home/skoblins/workspace/cpputest/include)
+include_directories(${CPPUTEST_ROOT}/include)
 
 add_executable(${CMAKE_PROJECT_NAME}-test
     source-test/main.cpp

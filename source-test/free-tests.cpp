@@ -1,4 +1,6 @@
 #include <CppUTest/TestHarness.h>
+#include <boost/iterator.hpp>
+
 extern "C"
 {
     #include <build.h>
@@ -21,14 +23,14 @@ public:
     A(){}
     ~A(){};
 };
+
+// bool func1() {
+//     const char* a{"yoyoyo"};
+//     boost::iterator<const char*> it;
+//     return true;
+// }
+
 TEST(free_test, must)
 {
-    // A a;
-    // a.~A();
-    unsigned char a = 255;
-    // std::cout << a + 1 << std::endl;
-    // FAIL("me");
-    watch(".");
-    // stop();
-
+    // CHECK(func1() == true);
 }

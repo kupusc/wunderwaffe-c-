@@ -3,7 +3,7 @@ PROJECT_NAME=wunderwaffe-c++
 GENERATOR=Ninja
 
 CMAKE_OUTPUT_DIR=/var/tmp/${PROJECT_NAME}
-CMAKE_SOURCE_DIR=~/workspace/${PROJECT_NAME}
+CMAKE_SOURCE_DIR=~/workspace/cxx/private/${PROJECT_NAME}
 
 TOOLCHAIN_FILES+=" clang.cmake"
 TOOLCHAIN_FILES+=" amd64.cmake"

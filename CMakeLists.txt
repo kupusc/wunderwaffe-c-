@@ -45,12 +45,11 @@ include_directories(source)
 add_library(state-machine-driver SHARED source/state-machine-driver.c)
 add_library(state-machine        SHARED source/state-machine.c)
 add_library(builder              SHARED source/build.c)
-add_library(llvm-pass            SHARED source/llvm-pass.cpp)
+add_library(llvm-pass            MODULE source/llvm-pass.cpp)
 
 set(libs    state-machine-driver;
             state-machine;
             builder;
-            llvm-pass
 )
 
 set(modules llvm-pass)
@@ -102,7 +101,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}      ${libs})
 target_link_libraries(${CMAKE_PROJECT_NAME}-test ${libs} CppUTest CppUTestExt)
 
 target_link_libraries(qt-app                     QtGui QtCore)
-target_link_libraries(llvm-pass                  ${LLVM_LIBRARIES} LLVMCore)
+# target_link_libraries(llvm-pass                  ${LLVM_LIBRARIES} LLVMCore)
 
 
 #####################

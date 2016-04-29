@@ -15,27 +15,10 @@ namespace {
           return false;
       }
     };
-    char Hello::ID = 0;
-    static RegisterPass<Hello> X("hello", "Hello World Pass",
-                                 false /* Only looks at CFG */,
-                                 false /* Analysis Pass */);
 };
 
-namespace wunderwaffe
-{
-    int execute(std::string const& command)
-    {
-        FILE * f = popen( command.c_str(), "r" );
-        if ( f == 0 ) {
-            fprintf( stderr, "Could not execute\n" );
-            return -1;
-        }
-        const int BUFSIZE = 1000;
-        char buf[ BUFSIZE ];
-        while( fgets( buf, BUFSIZE,  f ) ) {
-            fprintf( stdout, "%s", buf  );
-        }
-        pclose( f );
-        return 0;
-    }
-}
+
+char Hello::ID = 0;
+static RegisterPass<Hello> X("mutation", "Mutation Pass",
+                             false /* Only looks at CFG */,
+                             false /* Analysis Pass */);

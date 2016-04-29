@@ -1,6 +1,7 @@
 #include <sys/inotify.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdio.h>
 
 int work = 100;
 
@@ -25,4 +26,20 @@ void watch(char const* path)
         read_len = read(watch, &filename, filname_len);
         /* if(read_len == -1) exit(-1);*/
     }
+}
+
+int execute(const char* command)
+{
+    FILE * f = popen( command, "r" );
+    if ( f == 0 ) {
+        fprintf( stderr, "Could not execute\n" );
+        return -1;
+    }
+    const int BUFSIZE = 1000;
+    char buf[ BUFSIZE ];
+    while( fgets( buf, BUFSIZE,  f ) ) {
+        fprintf( stdout, "%s", buf  );
+    }
+    pclose( f );
+    return 0;
 }

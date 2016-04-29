@@ -1,5 +1,5 @@
 #include <CppUTest/TestHarness.h>
-#include <boost/iterator.hpp>
+#include <boost/iterator/transform_iterator.hpp>
 
 extern "C"
 {
@@ -24,13 +24,19 @@ public:
     ~A(){};
 };
 
-// bool func1() {
-//     const char* a{"yoyoyo"};
-//     boost::iterator<const char*> it;
-//     return true;
-// }
+bool func1() {
+    // const char* a{"yoyoyo"};
+    // boost::iterator<const char*> it;
+    return true;
+}
+
+struct someStruct
+{
+    int a;
+};
 
 TEST(free_test, must)
 {
-    // CHECK(func1() == true);
+
+    CHECK(func1() == true);
 }

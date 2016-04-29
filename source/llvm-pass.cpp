@@ -5,21 +5,21 @@
 
 using namespace llvm;
 
-// namespace {
-//     struct Hello : public FunctionPass {
-//         static char ID;
-//         Hello() : FunctionPass(ID) {}
-//         bool runOnFunction(Function &F) override {
-//           errs() << "Hello: ";
-//           errs().write_escaped(F.getName()) << "\n";
-//           return false;
-//       }
-//     };
-//     char Hello::ID = 0;
-//     static RegisterPass<Hello> X("hello", "Hello World Pass",
-//                                  false /* Only looks at CFG */,
-//                                  false /* Analysis Pass */);
-// };
+namespace {
+    struct Hello : public FunctionPass {
+        static char ID;
+        Hello() : FunctionPass(ID) {}
+        bool runOnFunction(Function &F) override {
+          errs() << "Hello: ";
+          errs().write_escaped(F.getName()) << "\n";
+          return false;
+      }
+    };
+    char Hello::ID = 0;
+    static RegisterPass<Hello> X("hello", "Hello World Pass",
+                                 false /* Only looks at CFG */,
+                                 false /* Analysis Pass */);
+};
 
 namespace wunderwaffe
 {

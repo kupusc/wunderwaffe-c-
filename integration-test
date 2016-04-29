@@ -15,7 +15,7 @@ _test_case "Checks if the configuration makes sense"
 [ -d $CMAKE_SOURCE_DIR ] || _error_cmake "no ${c} $CMAKE_SOURCE_DIR directory ${r}\nCannot configure project"
 
 for i in ${TOOLCHAIN_FILES[*]}; do
-    [ -f $i ] || _error_cmake "no ${c} $i ${r} toolchain file in ${CMAKE_SOURCE_DIR}"
+    [ -f $i ] || _error_cmake "no ${c} $i ${r   } toolchain file in ${CMAKE_SOURCE_DIR}"
 done
 
 ##########

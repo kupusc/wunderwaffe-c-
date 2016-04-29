@@ -30,6 +30,10 @@ add_subdirectory(${CPPUTEST_ROOT} ${CMAKE_CURRENT_BINARY_DIR}/cpputest)
 find_package(LLVM REQUIRED CONFIG)
 add_definitions(${LLVM_DEFINITIONS})
 include_directories(${LLVM_INCLUDE_DIRS})
+message(STATUS "LLVM_FOUND: ${LLVM_FOUND}")
+message(STATUS "LLVM_LIBRARIES: ${LLVM_LIBRARIES}")
+message(STATUS "LLVM_INCLUDE_DIRS: ${LLVM_INCLUDE_DIRS}")
+message(STATUS "LLVM_DEFINITIONS: ${LLVM_DEFINITIONS}")
 
 
 ###################
@@ -98,6 +102,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}      ${libs})
 target_link_libraries(${CMAKE_PROJECT_NAME}-test ${libs} CppUTest CppUTestExt)
 
 target_link_libraries(qt-app                     QtGui QtCore)
+target_link_libraries(llvm-pass                  ${LLVM_LIBRARIES} LLVMCore)
 
 
 #####################

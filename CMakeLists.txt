@@ -45,22 +45,27 @@ include_directories(source)
 add_library(state-machine-driver SHARED source/state-machine-driver.c)
 add_library(state-machine        SHARED source/state-machine.c)
 add_library(builder              SHARED source/build.c)
+add_library(multitask            SHARED source/multitask.cpp)
 add_library(llvm-pass            MODULE source/llvm-pass.cpp)
 
-set(libs    state-machine-driver;
-            state-machine;
-            builder;
+set(pure_c_libs     state-machine-driver;
+                    state-machine;
+                    builder;
 )
 
-set(modules llvm-pass)
+set(cpp_modules     llvm-pass;
+)
+
+set(cpp_libs   multitask;
+)
 
 add_executable(${CMAKE_PROJECT_NAME}
     source/main.cpp
 )
 
 include_directories(/usr/include/qt4)
-link_directories(/usr/lib/qt4)
-add_executable(qt-app EXCLUDE_FROM_ALL source/main-qt.cpp)
+link_directories(   /usr/lib/qt4)
+add_executable(     qt-app EXCLUDE_FROM_ALL source/main-qt.cpp)
 
 
 #########
@@ -82,23 +87,22 @@ add_executable(${CMAKE_PROJECT_NAME}-test
 # Production PROPERTIES #
 #########################
 
-set_target_properties(${libs}
+set_target_properties(${pure_c_libs}
   PROPERTIES
   COMPILE_FLAGS -ansi
 )
 
-set_target_properties(${CMAKE_PROJECT_NAME}-test ${modules}
+set_target_properties(${CMAKE_PROJECT_NAME}-test ${cpp_libs} ${cpp_modules}
   PROPERTIES
   COMPILE_FLAGS -std=c++11
 )
 
 
 ###########
-# Linking #
-###########
+# Lilibs###########
 
-target_link_libraries(${CMAKE_PROJECT_NAME}      ${libs})
-target_link_libraries(${CMAKE_PROJECT_NAME}-test ${libs} CppUTest CppUTestExt)
+target_link_libraries(${CMAKE_PROJECT_NAME}      ${pure_c_libs} ${cpp_libs})
+target_link_libraries(${CMAKE_PROJECT_NAME}-test ${pure_c_libs} ${cpp_libs} CppUTest CppUTestExt)
 
 target_link_libraries(qt-app                     QtGui QtCore)
 # target_link_libraries(llvm-pass                  ${LLVM_LIBRARIES} LLVMCore)
@@ -111,17 +115,17 @@ target_link_libraries(qt-app                     QtGui QtCore)
 add_custom_target(run-test
     COMMAND cp ${CMAKE_SOURCE_DIR}/source-test/llvm-pass-example.cpp ${CMAKE_BINARY_DIR}/
     COMMAND ${to_host_translator} ./${CMAKE_PROJECT_NAME}-test
-    DEPENDS ${CMAKE_PROJECT_NAME}-test llvm-pass
+    DEPENDS ${CMAKE_PROJECT_NAME}-test ${cpp_modules}
     COMMENT "${to_host_translator} ./${CMAKE_PROJECT_NAME}-test"
 )
 
 add_custom_target(run
     COMMAND ${to_host_translator} ./${CMAKE_PROJECT_NAME}
-    DEPENDS ${CMAKE_PROJECT_NAME} llvm-pass
+    DEPENDS ${CMAKE_PROJECT_NAME} ${cpp_modules}
     COMMENT "${to_host_translator} ./${CMAKE_PROJECT_NAME}"
 )
 
 add_custom_target(run-qt
     COMMAND qt-app
-    DEPENDS llvm-pass
+    DEPENDS ${cpp_modules}
 )

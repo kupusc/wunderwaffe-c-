@@ -1,4 +1,6 @@
 #include <CppUTest/TestHarness.h>
+#include <multitask.h>
+// #include <memory>
 
 //////////  Stubs /////////
 
@@ -14,7 +16,11 @@ TEST_GROUP(multitask)
 
 //////// Tests /////////////
 
-IGNORE_TEST(multitask, does_nothing)
+TEST(multitask, does_nothing)
 {
+    worker w;
+    auto t = create_task("echo jojo");
+    w.accept(t.get());
+    w.start();
     // FAIL("dupa");
 }

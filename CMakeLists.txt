@@ -16,11 +16,18 @@ set(C++11 ON)
 set(CPPUTEST_ROOT /home/skoblins/workspace/cxx/cpputest)
 
 
-##################
-# test framework #
-##################
+##############
+# frameworks #
+##############
 
+# tests
 add_subdirectory(${CPPUTEST_ROOT} ${CMAKE_CURRENT_BINARY_DIR}/cpputest)
+
+
+# boost
+find_package(Boost REQUIRED COMPONENTS system)
+include_directories(${Boost_INCLUDE_DIRS})
+link_directories(${Boost_LIBRARY_DIRS})
 
 
 #########################
@@ -80,6 +87,7 @@ add_executable(${CMAKE_PROJECT_NAME}-test
     source-test/state-machine.cpp
     source-test/free-tests.cpp
     source-test/llvm-pass.cpp
+    source-test/multitask.cpp
 )
 
 
@@ -99,13 +107,12 @@ set_target_properties(${CMAKE_PROJECT_NAME}-test ${cpp_libs} ${cpp_modules}
 
 
 ###########
-# Lilibs###########
+# Libs    #
+###########
 
-target_link_libraries(${CMAKE_PROJECT_NAME}      ${pure_c_libs} ${cpp_libs})
-target_link_libraries(${CMAKE_PROJECT_NAME}-test ${pure_c_libs} ${cpp_libs} CppUTest CppUTestExt)
-
+target_link_libraries(${CMAKE_PROJECT_NAME}      ${pure_c_libs} ${cpp_libs} ${Boost_LIBRARIES})
+target_link_libraries(${CMAKE_PROJECT_NAME}-test ${pure_c_libs} ${cpp_libs} ${Boost_LIBRARIES} CppUTest CppUTestExt)
 target_link_libraries(qt-app                     QtGui QtCore)
-# target_link_libraries(llvm-pass                  ${LLVM_LIBRARIES} LLVMCore)
 
 
 #####################

@@ -40,6 +40,7 @@ struct worker: public iworker
     worker();
     void accept(itask* t);
     void start();
+    void join_all();
     ~worker();
 
 private:

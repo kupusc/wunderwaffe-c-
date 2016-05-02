@@ -2,6 +2,7 @@
 #include <boost/thread.hpp>
 #include <boost/lockfree/queue.hpp>
 #include <cstdlib>
+#include <iostream>
 
 int execute_shell(const char* command)
 {
@@ -48,7 +49,9 @@ template std::unique_ptr<itask> create_task(std::function<void()>);
 template <typename T>
 task<T>::task(T t)
 : substance(t)
-{}
+{
+    // std::cout << "will use " << boost::thread::hardware_concurrency() << " threads" << std::endl;
+}
 
 struct task_queue
 {
@@ -63,9 +66,9 @@ struct task_queue
 
     bool pop()
     {
-        itask* t;
+        itask* t = nullptr;
         const bool had_something = q.pop(t);
-        if(had_something)
+        if(had_something && t)
         {
             (*t)();
         }
@@ -93,13 +96,18 @@ void worker::accept(itask* t)
 
 void worker::start()
 {
-    for(unsigned i = 0; i < 4; ++i) {
+    for(unsigned i = 0; i < boost::thread::hardware_concurrency(); ++i)
+    {
         d->threads.add_thread(new boost::thread([&](){d->tq.pop();}));
     }
 }
 
-worker::~worker()
+void worker::join_all()
 {
     d->threads.join_all();
+}
+
+worker::~worker()
+{
     delete d;
 }

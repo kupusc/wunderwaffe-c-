@@ -19,8 +19,10 @@ TEST_GROUP(multitask)
 TEST(multitask, does_nothing)
 {
     worker w;
-    auto t = create_task("echo jojo");
+    auto t = create_task("echo task");
+    auto t2 = create_task(std::function<void()>([](){}));
     w.accept(t.get());
+    w.accept(t2.get());
     w.start();
-    // FAIL("dupa");
+    w.join_all();
 }

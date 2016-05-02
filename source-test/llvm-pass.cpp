@@ -1,10 +1,6 @@
 #include <CppUTest/TestHarness.h>
-#include <stdio.h>
 #include <string>
-extern "C"
-{
-    #include <build.h>
-}
+#include <multitask.h>
 
 //////////  Stubs /////////
 const std::string clang_build_cmd = "clang++ ";

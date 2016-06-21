@@ -3,7 +3,7 @@
 ############
 
 cmake_minimum_required(VERSION 2.8)
-project(${PROJECT_NAME})
+project(wunderwaffe-c++)
 
 
 #################
@@ -13,7 +13,7 @@ project(${PROJECT_NAME})
 set(CMAKE_BUILD_TYPE Debug CACHE STRING "" FORCE)
 set(CMAKE_USE_RELATIVE_PATHS ON CACHE BOOL "" FORCE)
 set(C++11 ON)
-set(CPPUTEST_ROOT /home/skoblins/workspace/cxx/cpputest)
+set(CPPUTEST_ROOT /home/skoblins/workspace/private/cpputest)
 
 
 ##############

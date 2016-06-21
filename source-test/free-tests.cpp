@@ -1,5 +1,8 @@
 #include <CppUTest/TestHarness.h>
 #include <boost/iterator/transform_iterator.hpp>
+#include <iostream>
+#include <algorithm>
+//#include <set>
 
 extern "C"
 {

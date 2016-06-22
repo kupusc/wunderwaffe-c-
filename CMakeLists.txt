@@ -21,8 +21,8 @@ set(CPPUTEST_ROOT /home/skoblins/workspace/private/cpputest)
 ##############
 
 # tests
-add_subdirectory(${CPPUTEST_ROOT} ${CMAKE_CURRENT_BINARY_DIR}/cpputest)
-
+include(FindPkgConfig)
+pkg_check_modules(CPPUTEST REQUIRED cpputest)
 
 # boost
 find_package(Boost REQUIRED COMPONENTS system thread)
@@ -79,7 +79,7 @@ add_executable(     qt-app EXCLUDE_FROM_ALL source/main-qt.cpp)
 # Tests #
 #########
 
-include_directories(${CPPUTEST_ROOT}/include)
+include_directories(${CPPUTEST_INCLUDE_DIRS})
 
 add_executable(${CMAKE_PROJECT_NAME}-test
     source-test/main.cpp
@@ -111,7 +111,7 @@ set_target_properties(${CMAKE_PROJECT_NAME}-test ${cpp_libs} ${cpp_modules}
 ###########
 
 target_link_libraries(${CMAKE_PROJECT_NAME}      ${pure_c_libs} ${cpp_libs} ${Boost_LIBRARIES})
-target_link_libraries(${CMAKE_PROJECT_NAME}-test ${pure_c_libs} ${cpp_libs} ${Boost_LIBRARIES} CppUTest CppUTestExt)
+target_link_libraries(${CMAKE_PROJECT_NAME}-test ${pure_c_libs} ${cpp_libs} ${Boost_LIBRARIES} ${CPPUTEST_LIBRARIES})
 target_link_libraries(qt-app                     QtGui QtCore)
 
 

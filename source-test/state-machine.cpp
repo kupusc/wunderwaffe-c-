@@ -24,6 +24,6 @@ TEST_GROUP(state_machine_must)
 
 TEST(state_machine_must, start_synchronously)
 {
-    state_machine_driver my_state_machine_data;
-    state_machine_start_synchronously(&my_state_machine_data);
+    state_machine_driver my_state_machine;
+    state_machine_start_synchronously(&my_state_machine);
 }

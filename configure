@@ -9,7 +9,7 @@ configure()
 {
     cfg=$1
     output_dir=${CMAKE_OUTPUT_DIR}-${cfg}
-    log_file=${CMAKE_SOURCE_DIR}/configure-${cfg}.log
+    log_file=${output_dir}/configure.log
     rm -rf $output_dir/*
     mkdir -p $output_dir
     pushd $output_dir > /dev/null

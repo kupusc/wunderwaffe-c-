@@ -2,16 +2,16 @@
 #include <string>
 #include <multitask.h>
 
-//////////  Stubs /////////
-const std::string clang_build_cmd = "clang++ ";
-const std::string file_path = "./llvm-pass-example.cpp";
-const std::string clang_build = clang_build_cmd + file_path;
-
 //////// Fixture //////////
 
 TEST_GROUP(smoke_llvm)
 {
+    const std::string clang_build_cmd = "clang++ ";
+    const std::string file_path = "./llvm-pass-example.cpp";
     const std::string clang_bitcode_cmd = clang_build_cmd + " -emit-llvm -c " + file_path;
+    const std::string clang_build = clang_build_cmd + file_path;
+    const std::string pass_test = "opt -load ./libllvm-pass.so -mutation < llvm-pass-example.bc > /dev/null";
+
     void setup()
     {
     }
@@ -33,6 +33,5 @@ TEST(smoke_llvm, generates_a_bitcode)
 TEST(smoke_llvm, mutation_pass_works)
 {
     execute(clang_bitcode_cmd.c_str());
-    const std::string pass_test = "opt -load ./libllvm-pass.so -mutation < llvm-pass-example.bc > /dev/null";
     CHECK_EQUAL(execute(pass_test.c_str()), 0);
 }

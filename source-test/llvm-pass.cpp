@@ -11,6 +11,7 @@ const std::string clang_build = clang_build_cmd + file_path;
 
 TEST_GROUP(smoke_llvm)
 {
+    const std::string clang_bitcode_cmd = clang_build_cmd + " -emit-llvm -c " + file_path;
     void setup()
     {
     }
@@ -26,13 +27,11 @@ TEST(smoke_llvm, compiles_with_clang)
 
 TEST(smoke_llvm, generates_a_bitcode)
 {
-    const std::string clang_bitcode_cmd = clang_build_cmd + " -emit-llvm -c " + file_path;
     CHECK_EQUAL(execute(clang_bitcode_cmd.c_str()), 0);
 }
 
 TEST(smoke_llvm, mutation_pass_works)
 {
-    const std::string clang_bitcode_cmd = clang_build_cmd + " -emit-llvm -c " + file_path;
     execute(clang_bitcode_cmd.c_str());
     const std::string pass_test = "opt -load ./libllvm-pass.so -mutation < llvm-pass-example.bc > /dev/null";
     CHECK_EQUAL(execute(pass_test.c_str()), 0);

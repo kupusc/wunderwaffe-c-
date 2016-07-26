@@ -39,30 +39,27 @@ done
 
 _test_case "projects must build tests (not run) for each target: can be run on target"
 
-rm -f build-test.log
 for cfg in ${CONFIGURATIONS_SUPPORTING_TESTS[*]}; do
-    echo $cfg >> build-test.log
-    cmake --build ${CMAKE_OUTPUT_DIR}-$cfg --target $PROJECT_NAME-test >> build-test-${cfg}.log 2>&1
+    LOGFILE=${CMAKE_OUTPUT_DIR}-$cfg/build-test.log
+    cmake --build ${CMAKE_OUTPUT_DIR}-$cfg --target $PROJECT_NAME-test > ${LOGFILE} 2>&1
     _error_cmake "building tests failed for $cfg"
     _info_cmake "$cfg ok"
 done
 
 _test_case "projects must run tests on supported (on host) targets: can be run on this host"
 
-rm -f run-test.log
 for cfg in ${CONFIGURATIONS_SUPPORTING_TESTS_ON_HOST[*]}; do
-    echo $cfg >> run-test.log
-    cmake --build ${CMAKE_OUTPUT_DIR}-${cfg} --target run-test >> run-test-${cfg}.log 2>&1
+    LOGFILE=${CMAKE_OUTPUT_DIR}-${cfg}/run-test.log
+    cmake --build ${CMAKE_OUTPUT_DIR}-${cfg} --target run-test > ${LOGFILE} 2>&1
     _error_cmake "running tests failed for $cfg"
     _info_cmake "$cfg ok"
 done
 
 _test_case "projects must build"
 
-rm -f build.log
 for d in ${output_dirs[*]}; do
-    echo $d >> build.log
-    cmake --build $d --target ${PROJECT_NAME} >> build.log 2>&1
+    LOGFILE=$d/build.log
+    cmake --build $d --target ${PROJECT_NAME} > ${LOGFILE} 2>&1
     _error_cmake "build failed for $d"
     _info_cmake "$d ok"
 done
@@ -70,8 +67,8 @@ done
 _test_case "projects must run on supported (on host) targets"
 
 for cfg in ${CONFIGURATIONS_SUPPORTING_RUNNING[*]}; do
-    echo $cfg >> run.log
-    cmake --build ${CMAKE_OUTPUT_DIR}-${cfg} --target run >> run-${cfg}.log
+    LOGFILE=${CMAKE_OUTPUT_DIR}-${cfg}/run.log
+    cmake --build ${CMAKE_OUTPUT_DIR}-${cfg} --target run > ${LOGFILE} 2>&1
     _error_cmake "running failed for $cfg"
     _info_cmake "$cfg ok"
 done

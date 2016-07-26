@@ -1,9 +1,11 @@
-PROJECT_NAME=wunderwaffe-c++
+PROJECT_NAME=wunderwaffe-c-
+WORKSPACE_DIR=~/workspace/private
+WORKSPACE_DIR=~
 
 GENERATOR=Ninja
 
 CMAKE_OUTPUT_DIR=/var/tmp/${PROJECT_NAME}
-CMAKE_SOURCE_DIR=~/workspace/private/${PROJECT_NAME}
+CMAKE_SOURCE_DIR=${WORKSPACE_DIR}/${PROJECT_NAME}
 
 TOOLCHAIN_FILES+=" clang.cmake"
 TOOLCHAIN_FILES+=" amd64.cmake"

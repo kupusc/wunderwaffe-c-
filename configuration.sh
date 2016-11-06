@@ -1,6 +1,5 @@
 PROJECT_NAME=wunderwaffe-c-
 WORKSPACE_DIR=~/workspace/private
-WORKSPACE_DIR=~
 
 GENERATOR=Ninja
 

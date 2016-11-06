@@ -40,6 +40,5 @@ struct someStruct
 
 TEST(free_test, must)
 {
-
     CHECK(func1() == true);
 }

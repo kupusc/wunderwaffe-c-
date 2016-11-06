@@ -13,7 +13,7 @@ configure()
     rm -rf $output_dir/*
     mkdir -p $output_dir
     pushd $output_dir > /dev/null
-    cmake -DPROJECT_NAME:STRING=${PROJECT_NAME} $CMAKE_SOURCE_DIR -G$GENERATOR -DCMAKE_TOOLCHAIN_FILE:PATH=${cfg} >> ${log_file}  2>&1
+    cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DPROJECT_NAME:STRING=${PROJECT_NAME} $CMAKE_SOURCE_DIR -G$GENERATOR -DCMAKE_TOOLCHAIN_FILE:PATH=${cfg} >> ${log_file}  2>&1
     _error_cmake "Errors in cmake configuration for ${c}${cfg}, ${r}see ${log_file} file for details."
     popd > /dev/null
 }

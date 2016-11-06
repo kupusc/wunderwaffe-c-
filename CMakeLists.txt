@@ -87,6 +87,7 @@ add_executable(${CMAKE_PROJECT_NAME}-test
     source-test/free-tests.cpp
     source-test/llvm-pass.cpp
     source-test/multitask.cpp
+    source-test/build.cpp
 )
 
 
